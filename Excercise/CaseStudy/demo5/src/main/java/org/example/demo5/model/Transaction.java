@@ -6,7 +6,7 @@ public class Transaction {
     private int id;
     private double amount;
     private String description;
-    private String type; // Thay đổi từ typeId và typeName
+    private String type;
     private Date date;
 
     public Transaction() {

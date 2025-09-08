@@ -25,10 +25,10 @@ public class ListTransactionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             List<Transaction> transactions = transactionService.getAllTransactions();
-            // Đã xóa dòng lấy transactionTypes
+
 
             request.setAttribute("transactions", transactions);
-            // Đã xóa dòng setAttribute cho transactionTypes
+
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);

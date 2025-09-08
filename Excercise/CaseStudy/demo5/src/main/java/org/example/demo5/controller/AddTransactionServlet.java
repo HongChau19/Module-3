@@ -26,7 +26,7 @@ public class AddTransactionServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String description = request.getParameter("description");
         double amount = Double.parseDouble(request.getParameter("amount"));
-        String type = request.getParameter("type"); // Lấy giá trị chuỗi từ form
+        String type = request.getParameter("type");
         String dateString = request.getParameter("date");
         Date date = Date.valueOf(dateString);
 

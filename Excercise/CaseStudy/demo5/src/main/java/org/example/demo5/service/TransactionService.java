@@ -13,7 +13,7 @@ public class TransactionService {
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, transaction.getDescription());
             preparedStatement.setDouble(2, transaction.getAmount());
-            preparedStatement.setString(3, transaction.getType()); // Cập nhật để sử dụng cột 'type'
+            preparedStatement.setString(3, transaction.getType());
             preparedStatement.setDate(4, transaction.getDate());
 
             preparedStatement.executeUpdate();
@@ -31,7 +31,6 @@ public class TransactionService {
 
     public List<Transaction> getAllTransactions() throws SQLException {
         List<Transaction> transactionList = new ArrayList<>();
-        // Thay đổi câu lệnh SQL, không cần JOIN
         String sql = "SELECT * FROM transactions ORDER BY date DESC";
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement();
@@ -48,7 +47,4 @@ public class TransactionService {
         }
         return transactionList;
     }
-
-    // Phương thức này không còn cần thiết và đã được xóa bỏ
-    // public Map<Integer, String> getAllTransactionTypes() throws SQLException { ... }
 }
