@@ -1,4 +1,4 @@
-package org.example.demo4.controller;
+package org.example.demo5.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -6,13 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.demo4.model.Transaction;
-import org.example.demo4.service.TransactionService;
+import org.example.demo5.model.Transaction;
+import org.example.demo5.service.TransactionService;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet("/list")
 public class ListTransactionServlet extends HttpServlet {
@@ -26,10 +25,10 @@ public class ListTransactionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             List<Transaction> transactions = transactionService.getAllTransactions();
-            Map<Integer, String> transactionTypes = transactionService.getAllTransactionTypes();
+            // Đã xóa dòng lấy transactionTypes
 
             request.setAttribute("transactions", transactions);
-            request.setAttribute("transactionTypes", transactionTypes);
+            // Đã xóa dòng setAttribute cho transactionTypes
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);

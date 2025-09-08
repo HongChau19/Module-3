@@ -1,12 +1,14 @@
-package org.example.demo4.controller;
+package org.example.demo5.controller;
+
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.demo4.model.Transaction;
-import org.example.demo4.service.TransactionService;
+import org.example.demo5.model.Transaction;
+import org.example.demo5.service.TransactionService;
+
 
 import java.io.IOException;
 import java.sql.Date;
@@ -24,12 +26,12 @@ public class AddTransactionServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String description = request.getParameter("description");
         double amount = Double.parseDouble(request.getParameter("amount"));
-        int typeId = Integer.parseInt(request.getParameter("type"));
+        String type = request.getParameter("type"); // Lấy giá trị chuỗi từ form
         String dateString = request.getParameter("date");
         Date date = Date.valueOf(dateString);
 
         try {
-            transactionService.addTransaction(new Transaction(description, amount, typeId, date));
+            transactionService.addTransaction(new Transaction(description, amount, type, date)); // Truyền giá trị chuỗi
             response.sendRedirect(request.getContextPath() + "/list");
         } catch (SQLException e){
             e.printStackTrace();
@@ -39,5 +41,4 @@ public class AddTransactionServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Sai định dạng dữ liệu");
         }
     }
-
 }

@@ -85,10 +85,10 @@
     <c:set var="totalIncome" value="0"/>
     <c:set var="totalExpense" value="0"/>
     <c:forEach var="transaction" items="${transactions}">
-        <c:if test="${transaction.getTypeName() == 'Thu'}">
+        <c:if test="${transaction.getType() == 'Thu'}">
             <c:set var="totalIncome" value="${totalIncome + transaction.getAmount()}"/>
         </c:if>
-        <c:if test="${transaction.getTypeName() == 'Chi'}">
+        <c:if test="${transaction.getType() == 'Chi'}">
             <c:set var="totalExpense" value="${totalExpense + transaction.getAmount()}"/>
         </c:if>
     </c:forEach>
@@ -120,9 +120,8 @@
         <input type="text" name="description" placeholder="Mô tả" required>
         <input type="date" name="date" required>
         <select name="type" required>
-            <c:forEach var="entry" items="${transactionTypes}">
-                <option value="${entry.key}">${entry.value}</option>
-            </c:forEach>
+            <option value="Thu">Thu</option>
+            <option value="Chi">Chi</option>
         </select>
         <button type="submit">Thêm giao dịch</button>
     </form>
@@ -131,11 +130,11 @@
         <h2>Danh sách giao dịch</h2>
         <ul id="transaction-list">
             <c:forEach var="transaction" items="${transactions}">
-                <li class="<c:out value="${transaction.getTypeName() == 'Thu' ? 'income' : 'expense'}"/>">
+                <li class="<c:out value="${transaction.getType() == 'Thu' ? 'income' : 'expense'}"/>">
                     <span><c:out value="${transaction.getDescription()}"/></span>
                     <span class="date"><fmt:formatDate value="${transaction.getDate()}" pattern="dd-MM-yyyy"/></span>
                     <span class="amount">
-                        <c:out value="${transaction.getTypeName() == 'Thu' ? '+' : '-'}"/>
+                        <c:out value="${transaction.getType() == 'Thu' ? '+' : '-'}"/>
                         <fmt:formatNumber value="${transaction.getAmount()}" type="currency" currencySymbol="₫"/>
                     </span>
                     <div class="transaction-actions">

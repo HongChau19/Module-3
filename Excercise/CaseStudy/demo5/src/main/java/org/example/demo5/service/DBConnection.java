@@ -1,4 +1,4 @@
-package org.example.demo4.service;
+package org.example.demo5.service;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -14,10 +14,17 @@ public class DBConnection {
     public DBConnection() {}
 
     public static Connection getConnection() {
-
-        try{
+        try {
             Properties properties = new Properties();
+            // Lấy input stream từ file db.properties
             InputStream inputStream = DBConnection.class.getClassLoader().getResourceAsStream("db.properties");
+
+            // Nếu không tìm thấy file, inputStream sẽ là null
+            if (inputStream == null) {
+                System.err.println("Lỗi: Không tìm thấy tệp db.properties!");
+                return null;
+            }
+
             properties.load(inputStream);
 
             URL = properties.getProperty("db.url");
@@ -28,9 +35,10 @@ public class DBConnection {
             Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
             return connection;
         } catch (ClassNotFoundException | SQLException e) {
+            // In chi tiết lỗi để dễ dàng gỡ lỗi
             e.printStackTrace();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return null;
     }
