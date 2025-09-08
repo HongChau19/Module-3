@@ -1,4 +1,4 @@
-package org.example.demo4;
+package org.example.demo4.model;
 
 import java.sql.Date;
 

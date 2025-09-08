@@ -1,4 +1,4 @@
-package org.example.demo4;
+package org.example.demo4.service;
 
 import java.io.InputStream;
 import java.sql.Connection;

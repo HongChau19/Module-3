@@ -1,4 +1,6 @@
-package org.example.demo4;
+package org.example.demo4.service;
+
+import org.example.demo4.model.Transaction;
 
 import java.sql.*;
 import java.util.*;
