@@ -12,6 +12,7 @@ import org.example.demo5.service.TransactionService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/list")
 public class ListTransactionServlet extends HttpServlet {
@@ -24,8 +25,16 @@ public class ListTransactionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<Transaction> transactions = transactionService.getAllTransactions();
+            List<Transaction> transactions;
+            String typeFilter = request.getParameter("type");
 
+            if (typeFilter == null || typeFilter.isEmpty() || "all".equals(typeFilter)) {
+                transactions = transactionService.getAllTransactions();
+                request.setAttribute("currentFilter", "all");
+            } else {
+                transactions = transactionService.getTransactionsByType(typeFilter);
+                request.setAttribute("currentFilter", typeFilter);
+            }
 
             request.setAttribute("transactions", transactions);
 
@@ -34,7 +43,7 @@ public class ListTransactionServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error occurred.");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Dữ liệu lỗi.");
         }
     }
 }
