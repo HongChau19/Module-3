@@ -39,7 +39,7 @@ public class AddTransactionServlet extends HttpServlet {
                 request.getSession().setAttribute("pendingTransaction", new Transaction(categories, amount, type, date, description));
 
                 response.sendRedirect(request.getContextPath() + "/list");
-                return; // Dừng lại, không thêm giao dịch
+                return;
             }
 
             transactionService.addTransaction(new Transaction(categories, amount, type, date, description));
